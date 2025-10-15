@@ -3,5 +3,115 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "majha-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/majha-app",
+      "sourceRoot": "projects/majha-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/majha-app/src/main.ts",
+            "tsConfig": "projects/majha-app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/majha-app/public"
+              }
+            ],
+            "styles": [
+              "projects/majha-app/src/styles.scss"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "majha-app:build:production"
+            },
+            "development": {
+              "buildTarget": "majha-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/majha-app/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/majha-app/public"
+              }
+            ],
+            "styles": [
+              "projects/majha-app/src/styles.scss"
+            ]
+          }
+        }
+      }
+    },
+    "amchi-lib": {
+      "projectType": "library",
+      "root": "projects/amchi-lib",
+      "sourceRoot": "projects/amchi-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/amchi-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/amchi-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/amchi-lib/tsconfig.spec.json"
+          }
+        }
+      }
+    }
   }
 }

@@ -3,6 +3,11 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "amchi-lib": [
+        "./dist/amchi-lib"
+      ]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -22,5 +27,19 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
-  "files": []
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/majha-app/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/majha-app/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/amchi-lib/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/amchi-lib/tsconfig.spec.json"
+    }
+  ]
 }
